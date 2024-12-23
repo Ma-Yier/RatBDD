@@ -6,7 +6,7 @@ function [pyvar,pyformula] = buildBDD(model,dels)
         var=var+", '"+model.genes{i}+"'";
     end
     pyvar="bdd.declare("+var+")";
-    if dels(1)==1
+    if dels(1)>0
         formula="("+model.grs{1}+")";
     elseif dels(1)==0
         formula="! ("+model.grs{1}+")";
@@ -15,9 +15,9 @@ function [pyvar,pyformula] = buildBDD(model,dels)
         if isempty(model.grs{j})
             continue;
         end
-        if dels(1)==1
+        if dels(j)>0
             formula=formula+" & ("+model.grs{j}+")";
-        elseif dels(1)==0
+        elseif dels(j)==0
             formula=formula+" & ! ("+model.grs{j}+")";
         end
     end
